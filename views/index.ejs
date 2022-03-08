@@ -5,30 +5,25 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"
-            integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
-            crossorigin="anonymous">
-    </script>
-    <title>Socket.io</title>
-
+    <link rel="stylesheet" href="/style.css">
+    <title>Socket.io Tutorial</title>
 </head>
 <body>
-<input type="text" name="message" id="message">
-<button onclick="sendMessage()">Send message</button>
-<h2 id="h2"></h2>
-<script>
-  const socket = io();
-  let messages = [];
-  //Listen to received data from the server
-  socket.on('message', data => {
-    document.getElementById('h2').innerHTML = data;
+<div>
+    <form method="get">
+        <label for="username">Username: </label>
+        <input type="text" id="username" name="username">
+        <label for="chatroom">Select a room:</label>
+        <select name="room" id="chatroom">
+            <option value="Japan">Japan</option>
+            <option value="America">America</option>
+            <option value="Korea">Korea</option>
+            <option value="Vietnam">Vietnam</option>
+        </select>
+        <button id="sendMessage">Join Room</button>
+    </form>
+</div>
 
-  })
-  //Broadcast the message to everyone else
-  const sendMessage = () => {
-    const message = document.querySelector('#message');
-    socket.emit('broadcast', message.value);
-  }
-</script>
 </body>
 </html>
+

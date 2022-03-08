@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.3/qs.js"
+            integrity="sha512-Qv1OSKmVsG3Y4WAKqvlcL/KllfceErp2+ZfNsQtox5nZtQKL86CVfbjmak7A+ka3jo7BwvFXa47vHEBs8QKq7Q=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+    <script type="module" src="/client.js"></script>
+
+    <title>Socket.io Tutorial</title>
+</head>
+<body>
+<div class="container">
+    <div class="row chat-box" id="chatBox">
+
+    </div>
+    <div class="row chat-actions">
+        <form class="action-form" id="chatForm">
+            <input type="text" name="message" id="message">
+            <button class="btn" type="submit" id="send">Send</button>
+        </form>
+        <div class="action-form">
+            <select name="room" id="chatroom" class="select-chatroom">
+                <option value="Japan">Japan</option>
+                <option value="America">America</option>
+                <option value="Korea">Korea</option>
+                <option value="Vietnam">Vietnam</option>
+            </select>
+            <button class="btn">Join</button>
+        </div>
+        <div class="action-form">
+            <button class="leave-btn">Leave the chatroom</button>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+

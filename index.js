@@ -1,26 +1,36 @@
 const express = require('express');
 const app = express();
-const server = require('http').createServer(app);
+const { createServer } = require('http');
 const { Server } = require('socket.io');
-const io = new Server(server, { cors: { origin: '*' } });
-
-const port = 3000;
-app.set('view engine', 'ejs');
-
-
-app.get('/', (req, res) => {
-  res.render('index')
+const Message = require('./src/Message');
+const httpServer = createServer(app);
+const chatBot = 'Chat bot';
+const io = new Server(httpServer, {
+  cors: {
+    origin: '*'
+  }
 })
 
+httpServer.listen(3000);
 io.on('connection', socket => {
-  console.log('User ' + socket.id + ' connected.');
+  //Broadcast to other users: a user has joined
+  socket.broadcast.emit('message', new Message(chatBot, 'A user has joined the chat room'));
+  socket.emit('message', new Message(chatBot, 'Welcome to the chat room'));
+  socket.on('chat-message', message => {
+    io.emit('message', new Message('User', message));
+  })
 
-  socket.on('broadcast', message => socket.broadcast.emit('message', message));
 })
 
-server.listen(port, () => {
-  console.log(`Listening for clients on port ${port}...`)
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(express.raw());
+app.get('/', (req, res) => {
+
+  if (req.query['room']) {
+    const room = req.query['room'];
+    res.render('chat');
+  }
+  else res.render('index');
 })
-
-
 
