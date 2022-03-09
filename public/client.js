@@ -1,6 +1,13 @@
 const socket = io();
 const chatBox = document.getElementById('chatBox');
+const joinRoom = document.getElementById('joinRoom');
+let { username, room } = Qs.parse(location.search, {
+  ignoreQueryPrefix: true
+})
 
+if (!username) username = 'Anonymous user';
+
+socket.emit('joinRoom', {username, room});
 
 function showMessage(message) {
   const newMessage = document.createElement('div');
@@ -11,7 +18,6 @@ function showMessage(message) {
 
 //Receive and show message
 socket.on('message', message => {
-  console.log(message.text);
   showMessage(message);
   chatBox.scrollTop = chatBox.scrollHeight;
 })
@@ -27,3 +33,10 @@ chatForm.addEventListener('submit', e => {
   e.target.elements.message.value = '';
   e.target.elements.message.focus();
 })
+
+//Add the user to the room form as a hidden input attribute
+const userHidden = document.createElement('input');
+userHidden.setAttribute('type', 'hidden');
+userHidden.setAttribute('name', 'username');
+userHidden.value = username;
+joinRoom.appendChild(userHidden);

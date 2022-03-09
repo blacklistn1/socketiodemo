@@ -5,25 +5,40 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/vendor.css">
     <link rel="stylesheet" href="/style.css">
     <title>Socket.io Tutorial</title>
 </head>
 <body>
-<div>
-    <form method="get">
-        <label for="username">Username: </label>
-        <input type="text" id="username" name="username">
-        <label for="chatroom">Select a room:</label>
-        <select name="room" id="chatroom">
-            <option value="Japan">Japan</option>
-            <option value="America">America</option>
-            <option value="Korea">Korea</option>
-            <option value="Vietnam">Vietnam</option>
-        </select>
-        <button id="sendMessage">Join Room</button>
+<div class="container my-6">
+    <form action="/chat" method="get" class="flex flex-col p-6" id="joinForm">
+        <div class="my-3">
+            <label for="username" class="w-1/6 inline-block">Username: </label>
+            <input type="text" id="username" name="username" class="w-3/4 border border-black text-xl">
+        </div>
+        <div class="my-3">
+            <label for="chatroom" class="w-1/6 inline-block">Select a room:</label>
+            <select name="room" id="chatroom" class="inline-block w-3/4 border border-gray-500 text-xl">
+                <option class="text-xl" value="Japan">Japan</option>
+                <option class="text-xl" value="America">America</option>
+                <option class="text-xl" value="Korea">Korea</option>
+                <option class="text-xl" value="Vietnam">Vietnam</option>
+            </select>
+            <div class="my-3 flex space-x-1">
+                <div class="w-1/6"></div>
+                <button id="sendMessage" class="border border-gray-500 bg-gray-300 px-4 py-3 text-xl">Join Room</button>
+            </div>
+        </div>
     </form>
 </div>
 
 </body>
+
+<script>
+    const form =document.getElementById('joinForm');
+    form.addEventListener('submit', e => {
+      if (!e.target.elements.username.value) e.target.elements.username.value = 'Anonymous user';
+    })
+</script>
 </html>
 
